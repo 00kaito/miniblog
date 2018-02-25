@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com/">
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="includes/meta :: styles"></div>
+    <title>Title</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <!-- th:insert wkłada w aktualny znacnzik, a th:replace zamienia aktualny znacnzik -->
+            <div class="header">
+                <th:form th:insert="~{includes/searchbar :: searchbar}"/>
+            </div>
+            <hr />
+
+
+            <div th:if="${post} != null">
+                <!--<span th:text="${post.addedDate}"></span>-->
+                <!--<h2 th:text="${post.title}"></h2>-->
+                <!--<div th:text="${post.content}"></div>-->
+                <h4 class="card-title" th:text="${post.title}"></h4>
+                <p class="card-text" th:text="${post.content}"></p><br />
+                <hr />
+                <i th:each="tag, iterStat : ${post.tags}" th:text="!${iterStat.last} ? ${tag.tagName} + ', ': ${tag.tagName}"></i>
+                <hr />
+
+                <p>DODAWANIE KOMENTARZA:</p>
+
+                <form th:action="@{/addComment}" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" disabled class="form-control" id="inputEmail4" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">User Name</label>
+                            <input type="password" disabled class="form-control" id="inputPassword4" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputComment">Comment</label>
+                        <input type="hidden" name="postId" th:value="${post.id}">
+                        <textarea th:type="text" class ="form-control" id="inputComment" th:name="comment"></textarea>
+                    </div>
+                    <button th:type="submit" class="btn btn-primary">Send</button>
+                </form>
+
+                KOMENTARZE:
+
+                <div class="col-sm-5" th:each="comment : ${post.comments}">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>My username</strong> <span class="text-muted"
+                                                              th:text="${#dates.format(comment.audit.added, 'yyyyMMdd hh:mm:ss')}">commented 5 days ago</span>
+                        </div>
+                        <div class="panel-body">
+                            <p th:text="${comment.comment}"></p>
+                        </div><!-- /panel-body -->
+                    </div><!-- /panel panel-default -->
+                </div><!-- /col-sm-5 -->
+
+            </div>
+
+            <p th:if="${post == null}">
+                Szukany wpis nie istnieje
+            </p>
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+</div>
+
+</body>
+</html>

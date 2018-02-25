@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<div id="container">
+    <div id="row">
+
+        <!-- th:insert wkłada w aktualny znacnzik, a th:replace zamienia aktualny znacnzik -->
+        <div class="header">
+        <th:form th:insert="~{includes/searchbar :: searchbar}"/>
+        </div>
+        <h3>Posts</h3>
+
+        <div th:each="post : ${posts}">
+            <h2 th:text="${post.title}"></h2>
+            <div th:text="${post.content}"></div>
+            <div th:each="comment : ${post.comments}">
+                <span th:text="${comment.comment}"></span>
+                <span th:text="${comment.added}"></span>
+            </div>
+        </div>
+
+        <!--<table>-->
+        <!--<tr th:each="post : ${posts}">-->
+        <!--<td th:text="${post.title}"></td>-->
+        <!--<td th:text="${post.content}"></td>-->
+        <!--<tr th:each="postcomment: ${post.comments}">-->
+        <!--<td th:text="${postcomment.comment}"></td>-->
+        <!--</tr>-->
+
+        <!--</tr>-->
+        <!--</table>-->
+
+        <!--<h3> Lista</h3>-->
+        <!--<ul>-->
+            <!--<li th:each="post : ${posts}">-->
+                <!--<span th:text="${post.title}"></span>-->
+            <!--</li>-->
+        <!--</ul>-->
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<h2>Add post</h2>
+
+<!-- @ startuje od roota aplikacji (czyli dodaje odpowiedni kontekst + usuwa wszystkie znaki biale itp) -->
+<form th:action="@{/addPost}" method="post">
+    <input type="text" th:name="title"><br />
+    <textarea th:type="text" th:name="content"></textarea>
+    <input th:type="submit" value="Dodaj post">
+
+</form>
+
+</body>
+</html>

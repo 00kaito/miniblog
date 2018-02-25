@@ -1,0 +1,6 @@
+    <form th:action="@{/search?s=}" method="GET" th:fragment="searchbar">
+        <!--<input type="text" th:name="searchPhrase" th:value="${#request.getParameter('searchPhrase')}" placeholder="Poszukiwana fraza">-->
+        <!--mozna tez przez #reqest.getParameter('nazwaParametru')-->
+        <input type="text" th:name="searchPhrase" th:value="${searchPhrase}" placeholder="Poszukiwana fraza">
+        <input type="submit" value="Szukaj">
+    </form>
